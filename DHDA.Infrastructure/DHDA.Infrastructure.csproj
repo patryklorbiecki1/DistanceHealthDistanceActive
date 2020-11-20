@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../DHDA.Core/DHDA.Core.csproj" />
   </ItemGroup>
   <PropertyGroup>
