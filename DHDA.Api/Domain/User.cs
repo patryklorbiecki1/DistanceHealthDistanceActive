@@ -15,7 +15,7 @@ namespace DHDA.Core.Domain
         public string Company { get; protected set; }
         public string Number { get; protected set; }
         public string Email { get; protected set; }
-        public string ClassName { get; protected set; }
+        public Coach Coach { get; protected set; }
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
 

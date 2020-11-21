@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DHDA.Api.AutoMapper;
 using DHDA.Api.Services;
 using DHDA.Core.Repositories;
 using DHDA.Infrastructure.Database;
@@ -19,7 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
-
+using DHDA.Api.Repositories;
 namespace DHDA.Api
 {
     public class Startup
@@ -52,8 +53,11 @@ namespace DHDA.Api
             services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
             services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IEncrypter, Encrypter>();
             services.AddScoped<IJwtHandler, JwtHandler>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
+            services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddCors();
             services.AddControllers();
         }
