@@ -41,7 +41,7 @@ class NavMenu extends Component {
           return(
             <div>
             { modal }
-            <Navbar color="dark" dark expand="md">
+            <Navbar color="dark" dark expand="md" className="navmenu">
               <NavbarBrand href="/">DistanceHealth - DistanceActive</NavbarBrand>
               <NavbarToggler 
               // onClick={toggle} 

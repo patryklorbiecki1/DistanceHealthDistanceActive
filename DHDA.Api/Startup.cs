@@ -54,15 +54,7 @@ namespace DHDA.Api
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEncrypter, Encrypter>();
             services.AddScoped<IJwtHandler, JwtHandler>();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("Policy1", builder =>
-                {
-                    builder.WithOrigins("https://localhost:5001")
-                    .WithMethods("POST", "GET", "PUT", "DELETE")
-                    .WithHeaders(HeaderNames.ContentType);
-                });
-            });
+            services.AddCors();
             services.AddControllers();
         }
 
@@ -73,7 +65,7 @@ namespace DHDA.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("Policy1");
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseHttpsRedirection();
 
             app.UseRouting();

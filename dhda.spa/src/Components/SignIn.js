@@ -1,45 +1,43 @@
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import { Label, FormGroup, Input, Table, Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
-import React from 'react';
+import { React, Component } from 'react';
+import { Redirect } from "react-router-dom";
 import '../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-
-import { Component } from 'react';
-
-
 
 class SignIn extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-          items: [],
           userData: {
             login: '',
             password: '',
           },
           newItemModal: props.newModal,
+          loginStatus: false,
         };
       }
 
-      componentDidMount(){
-        // axios.get('http://localhost:3000/items').then((response) => {
-        //   this.setState({ 
-        //     items: response 
-        //   })
-        // });
-    //    this.getItems();
-      }
+    componentDidMount(){ }
 
-    //   getItems = async () => {
-    //     await fetch('http://localhost:1234/items',{method: 'GET', mode: 'cors', credentials: 'omit'})
-    //     .then(response => {return response.json();})
-    //     // .then(response => {return JSON.stringify(response);})
-    //     .then(response => {console.log('BEFORE',response); {return response.data}})
-    //     .then(response => {this.setState({ items: response })})
-    //     .catch(err => console.error(err))
-    //   }
+    addItem = async () => {
+      const { userData } = this.state;
+     // await fetch(`https://localhost:5001/login?email=${userData.login}&password=${userData.password}`, {
+      await fetch(`https://localhost:5001/user`, {
+        method: 'GET', mode: 'cors', credentials: 'omit'
+      }).then( response => {
+        console.log(response.json().data)
+        this.setState({       
+          newItemModal: false,  
+          loginStatus: true,
+          userData: {
+            login: '',
+            password: '',
+          },
+        });  
+      });
+    };
 
       toggleNewItemModal(){
         this.setState({
@@ -47,24 +45,36 @@ class SignIn extends Component {
         });
       };
 
-      render() {
-        const { items, newItemModal, newItemData, editItemData, editItemModal } = this.state;
-        
+      renderRedirect = () => {
+        if(this.state.loginStatus){
+          return <Redirect from="/" to="/loggedin" />
+        }
+      }
 
+    render() {
+        const { newItemModal, userData } = this.state;
+  
       return (
         <div>
+            {this.renderRedirect}       
             <Modal isOpen={ newItemModal } >
             <ModalHeader cssModule={{'modal-title': 'w-100 text-center'}} >Zaloguj</ModalHeader>
             <ModalBody>
                 <FormGroup>
-                    <Label for="idItem">Login</Label>
-                    <Input required type="text" name="idItem" id="idItem" placeholder="Login"/>
+                    <Label for="login">Login</Label>
+                    <Input required type="text" name="login" id="login" placeholder="Nazwa użytkownika lub email" value={ userData.login} onChange={(e) => {
+                             userData.login = e.target.value;
+                             this.setState({  userData });
+                    }}/>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="idItem">Hasło</Label>
-                    <Input required type="password" name="idItem" id="idItem" placeholder="Hasło"/>
+                    <Label for="password">Hasło</Label>
+                    <Input required type="password" name="idItem" id="idItem" placeholder="Hasło" value={ userData.password} onChange={(e) => {
+                             userData.password = e.target.value;
+                             this.setState({  userData });
+                    }}/>
                 </FormGroup>
-                <Button color="success" className="btn-lg  btn-block">Zaloguj się</Button>
+                <Button color="success" className="btn-lg  btn-block" onClick={this.addItem.bind(this)}>Zaloguj się</Button>
                 <span className="text-center pt-3"> Zaloguj się przez </span>
                 <GoogleLoginButton/>
                 <FacebookLoginButton/>
@@ -79,6 +89,7 @@ class SignIn extends Component {
                 <Button color="secondary"  onClick={ this.toggleNewItemModal.bind(this) }>Anuluj</Button>
               </ModalFooter>
             </Modal>
+            {this.renderRedirect()} 
             </div>
     );
   }
