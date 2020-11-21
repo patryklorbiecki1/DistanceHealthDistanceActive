@@ -20,7 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
-
+using DHDA.Api.Repositories;
 namespace DHDA.Api
 {
     public class Startup
@@ -56,6 +56,7 @@ namespace DHDA.Api
             services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IEncrypter, Encrypter>();
             services.AddScoped<IJwtHandler, JwtHandler>();
+            services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddCors();
 
