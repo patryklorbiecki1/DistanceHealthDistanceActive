@@ -26,7 +26,9 @@ namespace DHDA.Infrastructure.Services
                 audience: _configuration["Jwt:Issuer"],
                 expires: DateTime.Now.AddMinutes(120),
                 signingCredentials: credentials);
+            await Task.CompletedTask;
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+            
     }
 }
