@@ -19,10 +19,13 @@ namespace DHDA.Api.Controllers
             _coachRepository = coachRepository;
         }
 
-        [HttpGet("{coachEmail}")]
+        [HttpGet("/u/{coachEmail}")]
         public async Task<IEnumerable<User>> GetUsers(string coachEmail)
             => await _coachRepository.GetUsers(coachEmail);
-        
+
+        [HttpGet("{email}")]
+        public async Task<Coach> GetUserByEmail(string email)
+            => await _coachRepository.GetCoach(email);
 
     }
 }
