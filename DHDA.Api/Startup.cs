@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DHDA.Api.AutoMapper;
 using DHDA.Api.Services;
 using DHDA.Core.Repositories;
 using DHDA.Infrastructure.Database;
@@ -52,17 +53,12 @@ namespace DHDA.Api
             services.Configure<DatabaseSettings>(Configuration.GetSection(nameof(DatabaseSettings)));
             services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ICoachRepository, CoachRepository>();
             services.AddScoped<IEncrypter, Encrypter>();
             services.AddScoped<IJwtHandler, JwtHandler>();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("Policy1", builder =>
-                {
-                    builder.WithOrigins("https://localhost:5001")
-                    .WithMethods("POST", "GET", "PUT", "DELETE")
-                    .WithHeaders(HeaderNames.ContentType);
-                });
-            });
+            services.AddSingleton(AutoMapperConfig.Initialize());
+            services.AddCors();
+
             services.AddControllers();
         }
 
@@ -73,7 +69,7 @@ namespace DHDA.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("Policy1");
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseHttpsRedirection();
 
             app.UseRouting();

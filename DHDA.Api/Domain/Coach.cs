@@ -12,5 +12,6 @@ namespace DHDA.Core.Domain
         public string Company { get; protected set; }
         public string Number { get; protected set; }
         public string Email { get; protected set; }
+        public IEnumerable<User> Users { get; protected set; }
     }
 }

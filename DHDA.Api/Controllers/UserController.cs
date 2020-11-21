@@ -1,4 +1,6 @@
-﻿using DHDA.Api.Commands.User;
+﻿using AutoMapper;
+using DHDA.Api.Commands.User;
+using DHDA.Api.DTO;
 using DHDA.Core.Domain;
 using DHDA.Core.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -16,14 +18,14 @@ namespace DHDA.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
-
+        
         public UserController(IUserRepository userRepository)
         { 
             _userRepository = userRepository;
         }
         
         [HttpGet]
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<IEnumerable<UserDTO>> GetAllUsers()
             => await _userRepository.GetAllUsers();
 
      

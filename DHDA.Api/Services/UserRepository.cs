@@ -1,4 +1,6 @@
-﻿using DHDA.Api.Services;
+﻿using AutoMapper;
+using DHDA.Api.DTO;
+using DHDA.Api.Services;
 using DHDA.Core.Domain;
 using DHDA.Core.Repositories;
 using DHDA.Infrastructure.Database;
@@ -15,20 +17,25 @@ namespace DHDA.Infrastructure.Services
 
         private readonly IMongoCollection<User> _appDbContext;
         private readonly IEncrypter _encrypter;
-        public UserRepository(IDatabaseSettings settings, IEncrypter encrypter)
+        private readonly IMapper _mapper;
+        public UserRepository(IDatabaseSettings settings, IEncrypter encrypter,
+             IMapper mapper)
         {
+            _mapper = mapper;
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.Database);
             _appDbContext = database.GetCollection<User>("user");
             _encrypter = encrypter;
         }
-        public async Task<IEnumerable<User>> GetAllUsers()
-            => await Task.FromResult(_appDbContext.Find(user => true).ToList());
-
-
+        public async Task<IEnumerable<UserDTO>> GetAllUsers()
+        {
+            var users = await Task.FromResult(_appDbContext.Find(user => true).ToList());
+            return _mapper.Map<List<User>, List<UserDTO>>(users);
+        }
         public async Task<User> GetUserByEmail(string email)
-            => await Task.FromResult(_appDbContext.Find<User>(user => user.Email == email).FirstOrDefault());
-
+        =>  await Task.FromResult(_appDbContext.Find<User>(user => user.Email == email).FirstOrDefault());
+          
+        
         public async Task<User> Login(string email, string password)
         {
             var user = await GetUserByEmail(email);
