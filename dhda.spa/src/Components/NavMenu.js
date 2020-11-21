@@ -5,8 +5,8 @@ import {
 
 const NavMenu = () => (
     <div>
-          <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">E-Szef</NavbarBrand>
+          <Navbar color="dark" dark expand="md">
+            <NavbarBrand href="/">DistanceHealth - DistanceActive</NavbarBrand>
             <NavbarToggler 
             // onClick={toggle} 
             />
@@ -14,12 +14,15 @@ const NavMenu = () => (
             // isOpen={isOpen} 
             navbar>
               <Nav className="mr-auto" navbar>
-                <NavItem>
+                {/* <NavItem>
                   <NavLink href="/components/">Components</NavLink>
-                </NavItem>
+                </NavItem> */}
                 <NavItem>
                   <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink href="/next">next</NavLink>
+                </NavItem> 
                 <UncontrolledDropdown nav inNavbar>
                   <DropdownToggle nav caret>
                     Options
@@ -38,7 +41,7 @@ const NavMenu = () => (
                   </DropdownMenu>
                 </UncontrolledDropdown>
               </Nav>
-              <NavbarText>Simple Text</NavbarText>
+              <NavbarText>Zaloguj</NavbarText>
             </Collapse>
           </Navbar>
         </div>
