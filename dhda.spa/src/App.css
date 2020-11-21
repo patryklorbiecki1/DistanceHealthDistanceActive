@@ -3,16 +3,17 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: auto; 
+  width: 100%; 
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
+} */
+/* 
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,7 +23,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
@@ -35,4 +36,55 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.sidenav {
+ 
+  height: 1000px;
+  margin-top:55px;
+
+
+}
+
+
+
+.navmenu {
+  height: 55px;
+  background-color: #202426;
+}
+
+.iconic {
+  width: 30px;
+  height:auto;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
+  vertical-align: middle;
+  padding-bottom: 10px;
+}
+
+
+
+.badge{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 55px;
+  width: 150px;
+  background: #343A40;
+  display :block;
+  color:#343A40;
+}
+
+.badge:empty {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 55px;
+  width: 150px;
+  background: #202426;
+  display :block;
 }

@@ -59,7 +59,6 @@ namespace DHDA.Api
             services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());
             services.AddCors();
-
             services.AddControllers();
         }
 
