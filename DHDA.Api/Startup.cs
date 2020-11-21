@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DHDA.Api.AutoMapper;
-using DHDA.Api.Repositories;
 using DHDA.Api.Services;
 using DHDA.Core.Repositories;
 using DHDA.Infrastructure.Database;
@@ -55,7 +54,6 @@ namespace DHDA.Api
             services.AddSingleton<IDatabaseSettings>(sp => sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICoachRepository, CoachRepository>();
-            services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddScoped<IEncrypter, Encrypter>();
             services.AddScoped<IJwtHandler, JwtHandler>();
             services.AddSingleton(AutoMapperConfig.Initialize());
