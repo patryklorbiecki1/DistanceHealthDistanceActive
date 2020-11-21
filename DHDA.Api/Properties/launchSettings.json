@@ -20,7 +20,7 @@
     "DHDA.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "user",
+      "launchUrl": "user/andrzej@gmail.com",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

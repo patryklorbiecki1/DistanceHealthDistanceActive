@@ -9,6 +9,11 @@ import LoggedIn from './Components/LoggedIn';
 import LandingPage from './Components/LandingPage';
 import SignIn from './Components/SignIn';
 
+
+import Activity from './Components/Activity';
+import Task from './Components/Task';
+
+
 function App() {
   return (
     <div className="App">
@@ -16,6 +21,8 @@ function App() {
       <Switch>
         <Route path="/" exact component={ LandingPage } />
         <Route path="/loggedin" exact component={ LoggedIn } />
+        <Route path="/coach" exact component={ Activity } />
+         <Route path="/student" exact component={ Task } />
         {/* <Redirect from='/blog' to="/tutorials/" /> */}
         {/* <Route path="/sign-in" exact component={ SignIn } /> */}
         {/* <Route path="/next" exact component={ Next } /> */}

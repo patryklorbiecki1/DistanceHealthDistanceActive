@@ -21,6 +21,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using DHDA.Api.Repositories;
+
 namespace DHDA.Api
 {
     public class Startup
@@ -35,7 +36,17 @@ namespace DHDA.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                    });
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                .AddJwtBearer(options =>
                {
@@ -58,7 +69,7 @@ namespace DHDA.Api
             services.AddScoped<IJwtHandler, JwtHandler>();
             services.AddScoped<IActivityRepository, ActivityRepository>();
             services.AddSingleton(AutoMapperConfig.Initialize());
-            services.AddCors();
+          
             services.AddControllers();
         }
 
@@ -69,7 +80,7 @@ namespace DHDA.Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            app.UseCors("AllowAll");
             app.UseHttpsRedirection();
 
             app.UseRouting();

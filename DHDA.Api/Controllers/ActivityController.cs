@@ -29,11 +29,10 @@ namespace DHDA.Api.Controllers
             => await _activityRepository.GetUserActivities(email);
 
         [HttpPost]
-        public async Task<IActionResult> CreateActivity([FromBody] CreateActivity command)
+        public async Task CreateActivity([FromBody] CreateActivity command)
         {
             await _activityRepository.CreateActivity(command.UserEmail, command.ActivityName, command.Distance, command.TimeInSec);
 
-            return Created($"activities/{command.UserEmail}", null);
         }
 
 

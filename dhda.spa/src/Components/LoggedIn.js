@@ -5,7 +5,7 @@ import { React, Component } from 'react';
 
 import Sidebar from './Sidebar';
 import Activity from './Activity';
-
+import Task from './Task';
 
 class LoggedIn extends Component {
     constructor(props){
@@ -20,7 +20,8 @@ class LoggedIn extends Component {
          <div className="badge">Hi, Marek</div>
          <Sidebar />
          <Activity />
-
+         <Route path="/coach" exact component={ Activity } />
+         <Route path="/student" exact component={ Task } />
     </div>
      );
     }

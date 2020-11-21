@@ -28,9 +28,16 @@ class SignIn extends Component {
         method: 'GET', mode: 'cors', credentials: 'omit'
       }).then( response => {
         console.log(response.json().data)
+        
+        
+       let role = 'coach';
+        if(userData.login.includes('edu')) 
+            role='student'
+
         this.setState({       
           newItemModal: false,  
           loginStatus: true,
+          loginRole: role,
           userData: {
             login: '',
             password: '',
@@ -46,8 +53,11 @@ class SignIn extends Component {
       };
 
       renderRedirect = () => {
-        if(this.state.loginStatus){
-          return <Redirect from="/" to="/loggedin" />
+        if(this.state.loginRole==='student'){
+          return <Redirect from="/" to="/student" />
+        }
+        if(this.state.loginRole==='coach'){
+          return <Redirect from="/" to="/coach" />
         }
       }
 
